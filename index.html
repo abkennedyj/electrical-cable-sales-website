@@ -1,240 +1,144 @@
+<!-- Updated full HTML with licensed images, cart, pricing calculator, CMS-ready structure -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ElectroMall - Electronics Shop</title>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CABLEMALL — Electrical Cable Store</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
-        }
+        body { margin:0; font-family:Arial; background:#000; color:#eee; }
+        header { position:sticky; top:0; background:#111; padding:15px; }
+        nav a { color:#f5c400; padding:10px 16px; text-decoration:none; display:inline-block; }
+        nav a:hover { background:#222; }
+        .hero { padding:60px; text-align:center; background:#000 url('https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg') center/cover no-repeat; }
+        .hero h1 { font-size:48px; color:#f5c400; text-shadow:0 0 15px #000; }
 
-        /* Header */
-        header {
-            background-color: #0a3d62;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+        .section { padding:40px; max-width:1200px; margin:auto; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; }
+        .card { background:#111; padding:20px; border:1px solid #333; border-radius:8px; }
+        .card img { width:100%; border-radius:6px; }
+        button { background:#f5c400; border:none; padding:10px 16px; cursor:pointer; border-radius:5px; font-weight:bold; }
+        button:hover { opacity:0.8; }
 
-        header h1 {
-            margin: 0;
-            font-size: 40px;
-        }
+        table { width:100%; border-collapse:collapse; margin-top:20px; }
+        table, th, td { border:1px solid #555; }
+        th { background:#222; }
+        th, td { padding:10px; }
 
-        /* Navigation Bar */
-        nav {
-            background-color: #1e3799;
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            align-items: center;
-        }
-
-        nav a {
-            color: white;
-            margin: 0 20px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        /* Search Bar */
-        .search-box {
-            display: flex;
-            justify-content: center;
-            margin: 20px;
-        }
-
-        .search-box input {
-            width: 60%;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-        }
-
-        /* Cart Counter */
-        .cart {
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        /* Products Section */
-        .container {
-            width: 90%;
-            margin: auto;
-            padding-top: 30px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            grid-gap: 25px;
-        }
-
-        .product {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.7s forwards;
-        }
-
-        .product:hover {
-            transform: scale(1.05);
-            transition: 0.3s;
-        }
-
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .product img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .product h3 {
-            margin: 15px 0 10px;
-        }
-
-        .price {
-            font-size: 20px;
-            color: #16a085;
-            font-weight: bold;
-        }
-
-        .btn {
-            display: inline-block;
-            margin-top: 10px;
-            background-color: #1e3799;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #0c2461;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #0a3d62;
-            color: white;
-            text-align: center;
-            padding: 15px 0;
-            margin-top: 40px;
-        }
+        footer { text-align:center; background:#111; padding:20px; margin-top:40px; }
     </style>
 </head>
 <body>
-
     <header>
-        <h1>ElectroMall</h1>
-        <p>Your Trusted Store For All Electronics</p>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#calculator">Pricing Calculator</a>
+            <a href="#resources">Resources</a>
+            <a href="#contact">Contact</a>
+            <a href="#cart" style="float:right">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
     </header>
 
-    <nav>
-        <div>
-            <a href="#">Home</a>
-            <a href="#">Products</a>
+    <section id="home" class="hero">
+        <h1>CABLEMALL</h1>
+        <p>Your trusted hub for premium electrical cables</p>
+    </section>
+
+    <section id="products" class="section">
+        <h2>Products</h2>
+        <div class="grid" id="product-grid">
+            <div class="card">
+                <img src="https://images.pexels.com/photos/2880931/pexels-photo-2880931.jpeg" />
+                <h3>Coaxial Cable</h3>
+                <p>₵40 per meter</p>
+                <button onclick="addToCart('Coaxial Cable', 40)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://images.pexels.com/photos/1058760/pexels-photo-1058760.jpeg" />
+                <h3>Armoured Cable</h3>
+                <p>₵120 per meter</p>
+                <button onclick="addToCart('Armoured Cable', 120)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://images.pexels.com/photos/301873/pexels-photo-301873.jpeg" />
+                <h3>Cat6 Network Cable</h3>
+                <p>₵25 per meter</p>
+                <button onclick="addToCart('Cat6 Network Cable', 25)">Add to Cart</button>
+            </div>
         </div>
-        <div class="cart">🛒 Cart: <span id="cart-count">0</span></div>
-    </nav>
+    </section>
 
-    <!-- Search Bar -->
-    <div class="search-box">
-        <input type="text" id="search" placeholder="Search products...">
-    </div>
+    <section id="calculator" class="section">
+        <h2>Pricing Calculator</h2>
+        <label>Select Cable Type:</label>
+        <select id="calc-type">
+            <option value="40">Coaxial — ₵40/m</option>
+            <option value="120">Armoured — ₵120/m</option>
+            <option value="25">Cat6 — ₵25/m</option>
+        </select>
+        <br><br>
+        <label>Enter Length (meters):</label>
+        <input id="calc-length" type="number" min="1" />
+        <br><br>
+        <button onclick="calculatePrice()">Calculate</button>
+        <p id="calc-result"></p>
+    </section>
 
-    <div class="container" id="product-container">
+    <section id="resources" class="section">
+        <h2>Resources</h2>
+        <table>
+            <tr><th>Cable Type</th><th>Use Case</th><th>Rating</th></tr>
+            <tr><td>Coaxial</td><td>CCTV, RF signals</td><td>Good</td></tr>
+            <tr><td>Armoured</td><td>Outdoor, industrial</td><td>Excellent</td></tr>
+            <tr><td>Cat6</td><td>Networking</td><td>Excellent</td></tr>
+        </table>
+    </section>
 
-        <!-- Product Template -->
-        <div class="product" data-name="Samsung Smart TV">
-            <img src="https://via.placeholder.com/250x180" alt="Television">
-            <h3>Samsung 55” Smart TV</h3>
-            <p class="price">$650</p>
-            <div class="btn" onclick="addToCart()">Add to Cart</div>
-        </div>
+    <section id="cart" class="section">
+        <h2>Your Cart</h2>
+        <ul id="cart-list"></ul>
+        <h3>Total: ₵<span id="cart-total">0</span></h3>
+    </section>
 
-        <div class="product" data-name="HP Laptop">
-            <img src="https://via.placeholder.com/250x180" alt="Laptop">
-            <h3>HP Pavilion Laptop</h3>
-            <p class="price">$480</p>
-            <div class="btn" onclick="addToCart()">Add to Cart</div>
-        </div>
+    <section id="contact" class="section">
+        <h2>Contact</h2>
+        <p>Email: support@cablemall.com</p>
+    </section>
 
-        <div class="product" data-name="LG Fridge">
-            <img src="https://via.placeholder.com/250x180" alt="Fridge">
-            <h3>LG Double Door Fridge</h3>
-            <p class="price">$720</p>
-            <div class="btn" onclick="addToCart()">Add to Cart</div>
-        </div>
+    <footer>CABLEMALL © 2025</footer>
 
-        <div class="product" data-name="Microwave Oven">
-            <img src="https://via.placeholder.com/250x180" alt="Microwave">
-            <h3>Panasonic Microwave Oven</h3>
-            <p class="price">$160</p>
-            <div class="btn" onclick="addToCart()">Add to Cart</div>
-        </div>
+<script>
+let cart = [];
 
-        <div class="product" data-name="iPhone 14">
-            <img src="https://via.placeholder.com/250x180" alt="Phone">
-            <h3>iPhone 14 Pro</h3>
-            <p class="price">$999</p>
-            <div class="btn" onclick="addToCart()">Add to Cart</div>
-        </div>
+function addToCart(name, price) {
+    cart.push({ name, price });
+    document.getElementById('cart-count').textContent = cart.length;
+    updateCartUI();
+}
 
-        <div class="product" data-name="Standing Fan">
-            <img src="https://via.placeholder.com/250x180" alt="Fan">
-            <h3>Binatone Standing Fan</h3>
-            <p class="price">$85</p>
-            <div class="btn" onclick="addToCart()">Add to Cart</div>
-        </div>
+function updateCartUI() {
+    const list = document.getElementById('cart-list');
+    list.innerHTML = '';
+    let total = 0;
 
-    </div>
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item.name + ' — ₵' + item.price;
+        list.appendChild(li);
+        total += item.price;
+    });
 
-    <footer>
-        &copy; 2025 ElectroMall. All Rights Reserved.
-    </footer>
+    document.getElementById('cart-total').textContent = total;
+}
 
-    <!-- JavaScript For Cart + Search -->
-    <script>
-        let cartCount = 0;
+function calculatePrice() {
+    const typePrice = Number(document.getElementById('calc-type').value);
+    const length = Number(document.getElementById('calc-length').value);
+    if (!length) return;
 
-        function addToCart() {
-            cartCount++;
-            document.getElementById("cart-count").innerText = cartCount;
-        }
-
-        // Search Filter
-        document.getElementById("search").addEventListener("keyup", function () {
-            let searchValue = this.value.toLowerCase();
-            let products = document.querySelectorAll(".product");
-
-            products.forEach(product => {
-                let name = product.getAttribute("data-name").toLowerCase();
-                product.style.display = name.includes(searchValue) ? "block" : "none";
-            });
-        });
-    </script>
-
+    document.getElementById('calc-result').textContent = 'Total Price: ₵' + (typePrice * length);
+}
+</script>
 </body>
 </html>
