@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CABLEMALL — Electrical Cable Store</title>
+    <style>
+        body { margin:0; font-family:Arial; background:#000; color:#eee; }
+        header { position:sticky; top:0; background:#111; padding:15px; display:flex; align-items:center; justify-content:space-between; }
+        .logo { font-size:24px; color:#f5c400; font-weight:bold; cursor:pointer; }
+        .nav-links { display:none; flex-direction:column; background:#111; position:absolute; top:60px; right:0; width:200px; border:1px solid #333; border-radius:8px; }
+        .nav-links a { color:#f5c400; padding:10px 16px; text-decoration:none; display:block; }
+        .nav-links a:hover { background:#222; }
+        .menu-btn { font-size:24px; color:#f5c400; cursor:pointer; }
+
+        .section { padding:40px; max-width:1200px; margin:auto; }
+        .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:20px; }
+        .card { background:#111; padding:20px; border:1px solid #333; border-radius:8px; }
+        .card img { width:100%; border-radius:6px; }
+        button { background:#f5c400; border:none; padding:10px 16px; cursor:pointer; border-radius:5px; font-weight:bold; }
+        button:hover { opacity:0.8; }
+
+        table { width:100%; border-collapse:collapse; margin-top:20px; }
+        table, th, td { border:1px solid #555; }
+        th { background:#222; }
+        th, td { padding:10px; }
+
+        footer { text-align:center; background:#111; padding:20px; margin-top:40px; }
+
+        @media(min-width:768px) { .nav-links { display:flex; position:static; flex-direction:row; width:auto; border:none; } .menu-btn { display:none; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" onclick="goHome()">CABLEMALL</div>
+        <div class="menu-btn" onclick="toggleMenu()">☰</div>
+        <nav class="nav-links" id="nav-menu">
+            <a href="#home">Home</a>
+            <a href="#products">Products</a>
+            <a href="#calculator">Pricing Calculator</a>
+            <a href="#resources">Resources</a>
+            <a href="#contact">Contact</a>
+            <a href="#cart">Cart (<span id="cart-count">0</span>)</a>
+        </nav>
+    </header>
+
+    <section id="home" class="section">
+        <h1>Welcome to CABLEMALL</h1>
+        <p>Your trusted hub for premium electrical cables</p>
+    </section>
+
+    <section id="products" class="section">
+        <h2>Products</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://res.cloudinary.com/rsc/image/upload/b_rgb:FFFFFF,c_pad,dpr_1.1041666269302368,f_auto,h_399,q_auto,w_710/c_pad,h_399,w_710/F4262072-01?pgw=1" alt="Coaxial Cable" />
+                <h3>Coaxial Cable</h3>
+                <p>₵40 per meter</p>
+                <button onclick="addToCart('Coaxial Cable', 40)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://www.hongdacable.com/d/pic/power-cable/4-core-70mm-swa-cable.jpg" alt="Armoured Cable" />
+                <h3>Armoured Cable</h3>
+                <p>₵120 per meter</p>
+                <button onclick="addToCart('Armoured Cable', 120)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://media.startech.com/cms/products/main/n6patcxmbk.main.jpg" alt="Cat6 Network Cable" />
+                <h3>Cat6 Network Cable</h3>
+                <p>₵25 per meter</p>
+                <button onclick="addToCart('Cat6 Network Cable', 25)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_lsRycQG2tmuxyBjEHYIMfNVyejAhtAh2xQ&s" alt="Fiber Optic Cable" />
+                <h3>Fiber Optic Cable</h3>
+                <p>₵60 per meter</p>
+                <button onclick="addToCart('Fiber Optic Cable', 60)">Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://qfix.com.bd/wp-content/uploads/2023/12/81O876CP1-L.jpg" alt="Power Cable" />
+                <h3>Power Cable</h3>
+                <p>₵85 per meter</p>
+                <button onclick="addToCart('Power Cable', 85)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="calculator" class="section">
+        <h2>Pricing Calculator</h2>
+        <label>Select Cable Type:</label>
+        <select id="calc-type">
+            <option value="40">Coaxial — ₵40/m</option>
+            <option value="120">Armoured — ₵120/m</option>
+            <option value="25">Cat6 — ₵25/m</option>
+            <option value="60">Fiber Optic — ₵60/m</option>
+            <option value="85">Power — ₵85/m</option>
+        </select>
+        <br><br>
+        <label>Enter Length (meters):</label>
+        <input id="calc-length" type="number" min="1" />
+        <br><br>
+        <button onclick="calculatePrice()">Calculate</button>
+        <p id="calc-result"></p>
+    </section>
+
+    <section id="resources" class="section">
+        <h2>Resources</h2>
+        <table>
+            <tr><th>Cable Type</th><th>Use Case</th><th>Rating</th></tr>
+            <tr><td>Coaxial</td><td>CCTV, RF signals</td><td>Good</td></tr>
+            <tr><td>Armoured</td><td>Outdoor, industrial</td><td>Excellent</td></tr>
+            <tr><td>Cat6</td><td>Networking</td><td>Excellent</td></tr>
+            <tr><td>Fiber Optic</td><td>High-speed internet, telecommunications</td><td>Excellent</td></tr>
+            <tr><td>Power</td><td>Electrical power transmission</td><td>Good</td></tr>
+        </table>
+    </section>
+
+    <section id="cart" class="section">
+        <h2>Your Cart</h2>
+        <ul id="cart-list"></ul>
+        <h3>Total: ₵<span id="cart-total">0</span></h3>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact</h2>
+        <p>Email: support@cablemall.com</p>
+    </section>
+
+    <footer>CABLEMALL © 2025</footer>
+
+<script>
+let cart = [];
+function addToCart(name, price) {
+    cart.push({ name, price });
+    document.getElementById('cart-count').textContent = cart.length;
+    updateCartUI();
+}
+function updateCartUI() {
+    const list = document.getElementById('cart-list');
+    list.innerHTML = '';
+    let total = 0;
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item.name + ' — ₵' + item.price;
+        list.appendChild(li);
+        total += item.price;
+    });
+    document.getElementById('cart-total').textContent = total;
+}
+function calculatePrice() {
+    const typePrice = Number(document.getElementById('calc-type').value);
+    const length = Number(document.getElementById('calc-length').value);
+    if (!length) return;
+    document.getElementById('calc-result').textContent = 'Total Price: ₵' + (typePrice * length);
+}
+function toggleMenu() {
+    const menu = document.getElementById('nav-menu');
+    if (menu.style.display === 'flex') menu.style.display = 'none';
+    else menu.style.display = 'flex';
+}
+function goHome() { window.location.hash = '#home'; window.scrollTo(0,0); }
+</script>
+</body>
+</html>
